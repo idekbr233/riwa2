@@ -30,6 +30,24 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
+    title: 'Početna',
+    caption: 'Početna stranica',
+    icon: 'favorite',
+    link: '#/',
+  },
+  {
+    title: 'Knjiznica',
+    caption: 'Lista Knjiga',
+    icon: 'school',
+    link: '#/lol',
+  },
+  {
+    title: 'Popis',
+    caption: 'Popis Knjiga',
+    icon: 'school',
+    link: '#/popis',
+  },
+  {
     title: 'Docs',
     caption: 'quasar.dev',
     icon: 'school',
