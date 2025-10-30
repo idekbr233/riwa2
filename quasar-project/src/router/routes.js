@@ -6,15 +6,37 @@ const routes = [
   },
 
   {
-    path: '/lol',
+    path: '/noveknjige',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/lol', component: () => import('pages/ne-sto.vue') }],
+    children: [{ path: '/noveknjige', component: () => import('pages/NoveKnjigePage.vue') }],
   },
 
   {
-    path: '/popis',
+    path: '/popisknjiga',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/popis', component: () => import('pages/PopisKnjiga.vue') }],
+    children: [{ path: '/popisknjiga', component: () => import('pages/PopisKnjigaPage.vue') }],
+  },
+
+  {
+    path: '/pretrazivanjeknjiga',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/pretrazivanjeknjiga', component: () => import('pages/PretrazivanjeKnjigaPage.vue') }],
+  },
+
+  {
+    path: '/lokacijapage',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/lokacijapage', component: () => import('pages/LokacijaPage.vue') }],
+  },
+  {
+    path: '/loginpage',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/loginpage', component: () => import('pages/LoginPage.vue') }],
+  },
+  {
+    path: '/registracijapage',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/registracijapage', component: () => import('pages/RegistracijaPage.vue') }],
   },
 
   // Always leave this as last one,
