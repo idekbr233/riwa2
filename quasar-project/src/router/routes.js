@@ -43,6 +43,11 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '/testpage', component: () => import('pages/TestPage.vue') }],
   },
+  {
+    path: '/test1page',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/test1page', component: () => import('pages/Test1Page.vue') }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
