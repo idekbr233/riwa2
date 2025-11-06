@@ -19,7 +19,7 @@
         <q-td :props="props">
           <img
             :src="props.row.slika"
-            alt="Naslovnica"
+            alt="Slika"
             class="rounded shadow-sm"
             style="width: 50px; height: 70px; object-fit: cover;"
           />

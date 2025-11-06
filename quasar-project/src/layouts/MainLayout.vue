@@ -71,6 +71,12 @@ const linksList = [
     icon: 'school',
     link: '#/registracijapage',
   },
+  {
+    title: 'Test',
+    caption: 'Test Page',
+    icon: 'school',
+    link: '#/testpage',
+  },
 ]
 
 const leftDrawerOpen = ref(false)
