@@ -39,14 +39,9 @@ const routes = [
     children: [{ path: '/registracijapage', component: () => import('pages/RegistracijaPage.vue') }],
   },
   {
-    path: '/testpage',
+    path: '/unosknjigapage',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/testpage', component: () => import('pages/TestPage.vue') }],
-  },
-  {
-    path: '/test1page',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/test1page', component: () => import('pages/Test1Page.vue') }],
+    children: [{ path: '/unosknjigapage', component: () => import('pages/UnosKnjigaPage.vue') }],
   },
 
   // Always leave this as last one,

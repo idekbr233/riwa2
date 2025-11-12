@@ -4,22 +4,28 @@
     <q-input v-model="loginData.username" label="Korisničko ime" outlined />
     <q-input v-model="loginData.password" label="Lozinka" type="password" outlined />
     <q-btn color="primary" label="Potvrdi" @click="login" />
+    <div v-if="error" class="text-negative q-mt-sm">{{ error }}</div>
+    <div v-if="success" class="text-positive q-mt-sm">{{ success }}</div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
-export default {
-  setup() {
-    const loginData = ref({ username: '', password: '' })
+const loginData = ref({ username: '', password: '' })
+const error = ref('')
+const success = ref('')
 
-    const login = () => {
-      console.log('Login pokušaj:', loginData.value)
-      // TODO: ovdje ide API poziv kada baza bude spremna
-    }
-
-    return { loginData, login }
+const login = async () => {
+  error.value = ''
+  success.value = ''
+  try {
+    const res = await axios.post('http://localhost:3000/login', loginData.value)
+    success.value = res.data.message
+    console.log('Prijavljen korisnik:', res.data.user)
+  } catch (err) {
+    error.value = err.response?.data?.message || 'Greška pri prijavi'
   }
 }
 </script>

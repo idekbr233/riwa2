@@ -70,18 +70,12 @@ const linksList = [
     caption: 'Registration Page',
     icon: 'school',
     link: '#/registracijapage',
-  },
+  },  
   {
-    title: 'Test',
-    caption: 'Test Page',
+    title: 'Unos Knjiga',
+    caption: 'Unos Knjiga Page',
     icon: 'school',
-    link: '#/testpage',
-  },
-  {
-    title: 'Test 1',
-    caption: 'Test 1 Page',
-    icon: 'school',
-    link: '#/test1page',
+    link: '#/unosknjigapage',
   },
 ]
 

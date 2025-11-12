@@ -7,6 +7,7 @@
         dense
         outlined
         class="col"
+        @keyup.enter="doSearch"
       />
       <q-checkbox v-model="searchByAutor" label="Po autoru" />
       <q-checkbox v-model="searchByNaslov" label="Po naslovu" />
@@ -25,13 +26,15 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
 export default {
   setup() {
     const search = ref('')
     const searchByAutor = ref(true)
     const searchByNaslov = ref(false)
+    const filteredRows = ref([])
 
     const columns = [
       { name: 'naslov', label: 'Naslov', field: 'naslov', align: 'left' },
@@ -39,31 +42,26 @@ export default {
       { name: 'status', label: 'Status', field: 'status', align: 'left' }
     ]
 
-    const rows = ref([
-      { id: 1, naslov: 'Na Drini ćuprija', autor: 'Ivo Andrić', status: 'Dostupno' },
-      { id: 2, naslov: 'Zločin i kazna', autor: 'Fjodor Dostojevski', status: 'Posuđeno' },
-      { id: 3, naslov: 'Prokleta avlija', autor: 'Ivo Andrić', status: 'Dostupno' },
-      { id: 4, naslov: 'Judita', autor: 'Marko Marulić', status: 'Dostupno' },
-      { id: 5, naslov: 'Alkar', autor: 'Dinko Šimunović', status: 'Na rezervaciji' },
-      { id: 6, naslov: 'Breza', autor: 'Slavko Kolar', status: 'Dostupno' },
-      { id: 7, naslov: 'Kiklop', autor: 'Ranko Marinković', status: 'Posuđeno' },
-      { id: 8, naslov: 'Priče iz davnine', autor: 'Ivana Brlić-Mažuranić', status: 'Dostupno' },
-      { id: 9, naslov: 'Gospoda Glembajevi', autor: 'Miroslav Krleža', status: 'Posuđeno' },
-      { id: 10, naslov: 'Tena', autor: 'Josip Kozarac', status: 'Dostupno' }
-    ])
-
-    const filteredRows = ref(rows.value)
-
-    const doSearch = () => {
-      const term = search.value.toLowerCase()
-      filteredRows.value = rows.value.filter((book) => {
-        if (searchByAutor.value && book.autor.toLowerCase().includes(term)) return true
-        if (searchByNaslov.value && book.naslov.toLowerCase().includes(term)) return true
-        return false
-      })
+    const doSearch = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/pretraga', {
+          params: {
+            term: search.value,
+            byAutor: searchByAutor.value,
+            byNaslov: searchByNaslov.value
+          }
+        })
+        filteredRows.value = response.data
+      } catch (err) {
+        console.error(err)
+      }
     }
 
-    return { search, searchByAutor, searchByNaslov, doSearch, columns, filteredRows }
+    onMounted(() => {
+      doSearch()
+    })
+
+    return { search, searchByAutor, searchByNaslov, filteredRows, columns, doSearch }
   }
 }
 </script>

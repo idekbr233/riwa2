@@ -7,28 +7,46 @@
     <q-input v-model="korisnik.korisnicko_ime" label="Korisničko ime" outlined />
     <q-input v-model="korisnik.lozinka" label="Lozinka" type="password" outlined />
     <q-btn color="primary" label="Potvrdi" @click="register" />
+
+    <div v-if="error" class="text-negative q-mt-sm">{{ error }}</div>
+    <div v-if="success" class="text-positive q-mt-sm">{{ success }}</div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
-export default {
-  setup() {
-    const korisnik = ref({
-      ime: '',
-      prezime: '',
-      email: '',
-      korisnicko_ime: '',
-      lozinka: ''
-    })
+const korisnik = ref({
+  ime: '',
+  prezime: '',
+  email: '',
+  korisnicko_ime: '',
+  lozinka: ''
+})
 
-    const register = () => {
-      console.log('Registracija poslana:', korisnik.value)
-      // TODO: ovdje bi išao poziv prema backendu (API)
-    }
+const error = ref('')
+const success = ref('')
 
-    return { korisnik, register }
+const register = async () => {
+  error.value = ''
+  success.value = ''
+
+  if (!korisnik.value.ime || !korisnik.value.prezime || !korisnik.value.email || !korisnik.value.korisnicko_ime || !korisnik.value.lozinka) {
+    error.value = 'Sva polja su obavezna!'
+    return
+  }
+
+  try {
+    console.log('Registracija poslana:', korisnik.value)
+
+    const res = await axios.post('http://localhost:3000/registracija', korisnik.value)
+    success.value = res.data.message
+
+    korisnik.value = { ime: '', prezime: '', email: '', korisnicko_ime: '', lozinka: '' }
+  } catch (err) {
+    console.log('MYSQL ERROR:', err);
+    error.value = err.response?.data?.message || 'Greška pri registraciji'
   }
 }
 </script>
